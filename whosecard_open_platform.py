@@ -1,13 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-"""
-@version: 1.0
-@author: anne
-@contact: thy.self@foxmail.com
-@time: 2020/9/2 2:33 下午
-"""
-
 import re
 import requests
 import traceback
