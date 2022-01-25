@@ -29,7 +29,7 @@ ws.append([
 # def main(u_id, user, fan, follower, like_count):
 def main():
     dy = WhosecardDySpider()
-    result = dy.get_post(user_id=4437277056436583, max_cursor=0)
+    result = dy.get_post(user_id=96671888371, max_cursor=0)
     # result = dy.get_post(user_id=u_id, max_cursor=0)
     print(result)
     if result is not None:
@@ -40,10 +40,10 @@ def main():
                 user_name = aweme['author']['nickname']
                 uid = aweme['author']['uid']
                 sign = aweme['author']['signature']
-                user = "安森的话事酒馆"
-                fans = 6083761
-                follower = 8
-                like_count = 64278965
+                # user = "UNI星球"
+                fans = "20.2w"
+                follower = 3
+                like_count = "200.6w"
                 # user_url = "https://www.douyin.com/user/MS4wLjABAAAASnmoVotBsVhd4vE1FxuawkL75r_Hc8PQynaM5UAqUvE?enter_method=video_title&author_id=98289525851&group_id=6916409351733366019&log_pb=%7B%22impr_id%22%3A%22021625638344237fdbddc0100fff0030a0a1a880000002020eba6%22%7D&enter_from=video_detail"
                 aweme_id = aweme['aweme_id']
                 aweme_url = f"https://www.douyin.com/video/{aweme_id}"
@@ -56,16 +56,15 @@ def main():
                 ts = aweme['create_time']
                 timeArray = time.localtime(ts)
                 create_time = time.strftime("%Y-%m-%d %H:%M:%S", timeArray)
-                # if ts <= 1577808000:
-                #     return
-                print([user_name, uid, sign, fans, follower, like_count, aweme_url, aweme_id, desc,
-                       comment_count, digg_count, download_count, share_count, forward_count, create_time])
-                ws.append([user_name, uid, sign, fans, follower, like_count, aweme_id, aweme_url, desc,
+                if 1609430400 <= ts <= 1641780262:
+                    print([user_name, uid, sign, fans, follower, like_count, aweme_url, aweme_id, desc,
                            comment_count, digg_count, download_count, share_count, forward_count, create_time])
+                    ws.append([user_name, uid, sign, fans, follower, like_count, aweme_id, aweme_url, desc,
+                               comment_count, digg_count, download_count, share_count, forward_count, create_time])
             max_cursor = result['result']['max_cursor']
-            result = dy.get_post(user_id=4437277056436583, max_cursor=max_cursor)
+            result = dy.get_post(user_id=96671888371, max_cursor=max_cursor)
             # wb.save(f"D:/douyin/douyin_erp/douyin_8月/douyin_08_04/{user}.xlsx")
-            wb.save("D:/douyin/douyin_erp/douyin_8月/douyin_08_04/安森的话事酒馆.xlsx")
+            wb.save(r"D:\douyin\douyin_erp\22_1_douyin\欧尚汽车_his.xlsx")
         else:
             print("没有更多作品")
     else:

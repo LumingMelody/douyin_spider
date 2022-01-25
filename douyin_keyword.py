@@ -108,18 +108,22 @@ def del_duplication(file_path):
 
 
 if __name__ == '__main__':
-    file_path = r"D:\douyin\douyin_erp\douyin_11月\douyin_YSL夜皇后精华.xlsx"
-    try:
+    key_word_list = ["云朵霜", "冻龄小蓝瓶", "修护面霜"]
+    for i in key_word_list:
+        file_path = f"D:/douyin/douyin_erp/douyin_12月/douyin_12_08/douyin_{i}.xlsx"
+        # try:
         dy = WhosecardDySpider()
         cursor = 0
-        for i in range(100):
-            rs = dy.get_search(keyword="YSL夜皇后精华", cursor=cursor)
-            # print(rs)
-            while rs['result']['has_more']:
-                rs = dy.get_search(keyword="YSL夜皇后精华", cursor=cursor)
-                result = rs['result']
-                result_list = result['aweme_list']
-                for r in result_list:
+        # for i in range(100):
+        rs = dy.get_search(keyword=i, cursor=cursor)
+        print(rs)
+        while rs['result']['has_more']:
+            result = rs['result']
+            result_list = result['aweme_list']
+            for r in result_list:
+                create_time = r['create_time']
+                if 1627747200 <= int(create_time) <= 1638945195:
+                    # if int(create_time) >= 1609430400:
                     # user_id = r['author_user_id']
                     # sec_uid = r['author']['sec_uid']
                     # uid = str(user_id) + "&sec_uid=" + str(sec_uid)
@@ -129,6 +133,7 @@ if __name__ == '__main__':
                     # print(user_url)
                     user_name = r['author']['nickname']
                     fans = r['author']['follower_count']
+
                     # collect_count = r['statistics']['collect_count']
                     comment_count = r['statistics']['comment_count']
                     digg_count = r['statistics']['digg_count']
@@ -142,18 +147,20 @@ if __name__ == '__main__':
                     timeArray = time.localtime(ts)
                     create_time = time.strftime("%Y-%m-%d %H:%M:%S", timeArray)
                     # total_interaction = int(digg_count) + int(comment_count) + int(forward_count), int(download_count)
-                    ws.append([user_name, fans, v_url, digg_count, comment_count, forward_count,  download_count,
+                    ws.append([user_name, fans, v_url, digg_count, comment_count, forward_count, download_count,
                                create_time])
                     print([user_name, fans, v_url, digg_count, comment_count, forward_count, download_count,
                            create_time])
                 wb.save(file_path)
-                cursor += 12
-            else:
-                break
-            # if result['cursor'] == 12:
+            cursor += 12
+            print(cursor)
+            rs = dy.get_search(keyword=i, cursor=cursor)
+        # else:
+        #     break
+        # if result['cursor'] == 12:
 
-    except Exception as e:
-        print(e)
+        # except Exception as e:
+        #     print(e)
     # del_duplication(file_path)
 
     # df = pd.read_excel("D:/douyin/douyin_erp/黑丝douyin_06_16.xlsx")

@@ -1,4 +1,6 @@
+import datetime
 import random
+import time
 
 import pandas as pd
 import requests
@@ -32,7 +34,8 @@ DY_API_PATH = {
 wb = Workbook()
 
 ws = wb.active
-ws.append(['手机号', '达人名称', '用户ID', '达人主页链接', '评论', '点赞', '分享'])
+# ws.append(['手机号', '达人名称', '用户ID', '达人主页链接', '评论', '点赞', '分享'])
+ws.append(['达人名称', '用户ID', '达人主页链接', '点赞',  '评论', '收藏', '分享', '发布时间'])
 
 USER_AGENTS = [
     "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50",
@@ -100,16 +103,16 @@ def short_url_to_long_url(short_url):
 
 
 if __name__ == '__main__':
-    file_path = r"D:\red_book\red_book_51wom\red_book_10月\red_book_10_26\douyin_urls.xlsx"
+    file_path = r"D:\douyin\douyin_erp\22_1_douyin\douyin_01_12\douyin_urls.xlsx"
     dy = WhosecardDySpider()
     df = pd.read_excel(file_path)
     urls = df['发布链接']
-    phones = df['手机号']
-    for index, url in enumerate(urls):
+    # phones = df['手机号']
+    # for index, url in enumerate(urls):
+    for url in urls:
         # print(url)
         l_url = short_url_to_long_url(url)
-        # print(l_url)
-        # awe_id = url.split("/")[-1]
+        print(l_url)
         awe_id = l_url.split("/")[-2]
         print(awe_id)
         result = dy.get_detail(awe_id)
@@ -123,7 +126,13 @@ if __name__ == '__main__':
             comment_count = aweme_detail['statistics']['comment_count']
             digg_count = aweme_detail['statistics']['digg_count']
             share_count = aweme_detail['statistics']['share_count']
-            ws.append([phones[index], author_name, author_id, author_url, comment_count, digg_count, share_count])
-    wb.save(r"D:\red_book\red_book_51wom\red_book_10月\red_book_10_26\douyin_10_26_result.xlsx")
+            collect_count = aweme_detail['statistics']['collect_count']
+            create_time = aweme_detail['create_time']
+            timeArray = time.localtime(create_time)
+            post_time = time.strftime("%Y-%m-%d %H:%M:%S", timeArray)
+            ws.append([author_name, author_id, author_url, digg_count, comment_count, collect_count, share_count,
+                       post_time])
+            # ws.append([phones[index], author_name, author_id, author_url, comment_count, digg_count, share_count])
+    wb.save(r"D:\douyin\douyin_erp\22_1_douyin\douyin_01_12\douyin_01_12_result.xlsx")
 
 
