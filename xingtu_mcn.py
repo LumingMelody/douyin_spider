@@ -37,7 +37,7 @@ def get_public_sign(mcn_id):
     sign = m.hexdigest()
     # print(sign)
     return sign
-
+# f'author_id{author_id}service_method=GetAuthorSpreadInfoservice_name=data.AdStarDataService'
 
 def get_page_top_sign(mcn_id):
     # "mcn_id6685143170927296524service_methodMcnMainPageTopAuthorsservice_namemcn.AdStarMcnServicesign_strict1"

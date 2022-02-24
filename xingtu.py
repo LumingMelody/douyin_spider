@@ -16,7 +16,7 @@ headers = {
     "method": "GET",
     "scheme": "https",
     "cache-control": "max-age=0",
-    "cookie": "gfsitesid=MzZmODc4MzIwYnwxNjI1MTEyMTk5NDR8fDEwNTE0MDUyNzQ4MgsLCwsLCwsLCwsL; passport_csrf_token_default=25454a94b73082db0078c86894451f11; passport_csrf_token=25454a94b73082db0078c86894451f11; csrftoken=c7MDzKh5jozJNIrtNbX7iubWJbewwaWG; tt_webid=6972461911858349604; uid_tt=40c7b99b2dbbe5fe791d9c1993477654; uid_tt_ss=40c7b99b2dbbe5fe791d9c1993477654; sid_tt=36f878320b477383a013acab32d91e73; sessionid=36f878320b477383a013acab32d91e73; sessionid_ss=36f878320b477383a013acab32d91e73; sid_guard=36f878320b477383a013acab32d91e73%7C1625112198%7C5184000%7CMon%2C+30-Aug-2021+04%3A03%3A18+GMT; star_sessionid=c244370226739a4a9d2cc98b451897e0; gftoken=MzZmODc4MzIwYnwxNjI1MTEyMTk5NDR8fDAGBgYGBgY; MONITOR_WEB_ID=390217d3-4da0-4a97-a348-02781daf38f7",
+    "cookie": "MONITOR_WEB_ID=06071021-3c24-44cd-968c-e50c1f4de4c4; ttcid=d894af4d93b7433abf881d8430ad170432; tt_scid=nn.0gntv4qHPHEnnU9PoA6ptzI-wF-W3WAJMbIX4WOJPP0DgcRgYf8JSr6oMmDiv5d2c; csrftoken=2quuLHXlzEXss4T8xd7rV8PHiv4noq7S; tt_webid=7065236944129476109; passport_csrf_token_default=1a2ff6b63b96ae5ef50e536f327c60ce; passport_csrf_token=1a2ff6b63b96ae5ef50e536f327c60ce; s_v_web_id=verify_844530843a96600cbf81e9e634a61d7d; _tea_utm_cache_2018=undefined; uid_tt=c7d22752fe26b3612f680aaea4f6163c; uid_tt_ss=c7d22752fe26b3612f680aaea4f6163c; sid_tt=4a86061160c3cb37bce97098a4b7a2ba; sessionid=4a86061160c3cb37bce97098a4b7a2ba; sessionid_ss=4a86061160c3cb37bce97098a4b7a2ba; sid_ucp_v1=1.0.0-KDVjNzk4ZWRmNmQwZjc2MDFlYzUyNjg1MjMzMTJlMjcyM2I3ODUzYjMKFQj6wvTWhwMQzfvckAYY-hM4AUDrBxoCbGYiIDRhODYwNjExNjBjM2NiMzdiY2U5NzA5OGE0YjdhMmJh; ssid_ucp_v1=1.0.0-KDVjNzk4ZWRmNmQwZjc2MDFlYzUyNjg1MjMzMTJlMjcyM2I3ODUzYjMKFQj6wvTWhwMQzfvckAYY-hM4AUDrBxoCbGYiIDRhODYwNjExNjBjM2NiMzdiY2U5NzA5OGE0YjdhMmJh; sid_guard=4a86061160c3cb37bce97098a4b7a2ba%7C1645690317%7C5184000%7CMon%2C+25-Apr-2022+08%3A11%3A57+GMT; gftoken=NGE4NjA2MTE2MHwxNjQ1NjkwMzE3NjJ8fDAGBgYGBgY; star_sessionid=3827b4a0d5811682f1d01c7732790414; imagetoken=6a5a248139c4c4ca43e0ca5d228109e3924adcdc; imagetoken_ss=6a5a248139c4c4ca43e0ca5d228109e3924adcdc",
     "referer": "https://star.toutiao.com/ad/cart/settlement?_route_from=from_module%3Dnavigator",
 }
 
@@ -62,6 +62,8 @@ def get_douyin_content(dy_url):
     zero_to_twenty = ""
     over_sixty = ""
     user_tag = ""
+    id = dy_url.split('/')[-1]
+    sign = get_sign(id)
     response = requests.get(headers=headers, url=dy_url, verify=False)
     print(dy_url)
     if response:
@@ -132,7 +134,7 @@ def get_douyin_content(dy_url):
                        personal_interate_rate, zero_to_twenty, twenty_one_to_sixty, over_sixty])
             # ws.append([nick_name, uid, follower])
 
-        wb.save("D:/douyin/xingtu.xlsx")
+        wb.save(r"./xingtu.xlsx")
 
 
 if __name__ == '__main__':
@@ -150,6 +152,5 @@ if __name__ == '__main__':
     #         time.sleep(3)
     #     else:
     #         break
-    print(get_sign(6694816641462566924))
+    print(get_sign(6870166593343586312))
 
-4097101
